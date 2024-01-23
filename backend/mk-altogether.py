@@ -45,7 +45,7 @@ def imageRead(responseJson): # WOULD TAKE IN INPUT VARIABLES FROM FORM? + phone 
     personName = responseJson['name']
     phoneNumber = responseJson['phoneNumber']
 
-    image_path = '/Users/jasonkuo/Desktop/timecapsules/images/vitamin.png' 
+    image_path = 'path_to_image'
 
     img = cv2.imread(image_path)
 
@@ -70,31 +70,11 @@ def imageRead(responseJson): # WOULD TAKE IN INPUT VARIABLES FROM FORM? + phone 
     
     jasper(age, woken, given_time, complete_text, pillName, personName, phoneNumber) # + phone number
 
-# ----- MOVED THIS CODE INSIDE FUNCTIONS
-# client = OpenAI(
-#     # This is the default and can be omitted
-#     api_key="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"
-#     # api_key = os.environ['API_KEY']
-# )
-
-# age = 23
-# woken = 9
-# given_time = time(woken,0) #maybe woken.hour, woken.minutes(depends on input object format)
-# pillName = "crack"
-# personName = "Hohn"
-#   #PASS JASONS RESULT INTO THIS
-# instruction = "Tat Directions: Adults and children 4 years old over; chew 2 gummies 1 time per Take and with food, a few hours before or after other medications or natural health products day: taking"
-
-# instructInstruction = [
-#     {"role": "system", "content": "imagine you are a message bottle label. interpret the following slightly jumbled instructions and produce an easy to understand, concise instruction based on your interpretation."},
-#     {"role": "user", "content": instruction}
-# ]
-
 def jasper(age, woken, given_time, instruction, pillName, personName, phoneNumber): # + phone number
 
     client = OpenAI(
     # This is the default and can be omitted
-    api_key="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"
+    api_key= API_KEY
     # api_key = os.environ['API_KEY']
     )
 
@@ -194,16 +174,15 @@ def marcus(remindMessage, startTimes, phoneNumber): # NEEDS PHONE NUMBER -------
     print(schedule_dates_array)
 
     # setup account info -- put in .env 
-    account_sid = 'ACd5c15461c9aed877d5a72ff1608e0945' # given acc_sid
-    auth_token = '0c02785b92ec7134cbc92942a97c951f'  # given auth token
+    account_sid = ACC_SID # given acc_sid
+    auth_token = AUTH_TOKEN  # given auth token
     client = Client(account_sid, auth_token)
 
     for dates in schedule_dates_array:
         scheduledMessage = client.messages \
             .create(
                 body=remindMessage, # replace with message
-                messaging_service_sid='MG99dc5b9921885ba4ee0697951046edf3', # 
-                #  from_='+16592228774',
+                messaging_service_sid= MESSAGE_SID, # 
                 send_at=dates, # scheduled message
                 schedule_type='fixed',
                 to='+1' + phoneNumber # + phone number
@@ -212,7 +191,7 @@ def marcus(remindMessage, startTimes, phoneNumber): # NEEDS PHONE NUMBER -------
 
     # messageDemoInstant("Hello, your pill scheduling has been confirmed! Stay Healthy!") # FOR CONFIRMATION
     message = client.messages.create(
-        from_='+16592228774',
+        from_= ACCOUNT_NUMBER
         body="Hey there, your daily pill reminders have been confirmed! Stay Healthy!", # replace with message
         to='+1' + phoneNumber # + phone number
         )
@@ -250,7 +229,7 @@ def add_days_to_dates(date_strings):
 
     return modified_dates
  
-        # --- DON'T NEED THIS CODE BECAUSE ALREADY CONNECTED IT TO SENDERS? --- 
+        # --- DON'T NEED THIS CODE BECAUSE ALREADY CONNECTED IT TO SENDERS --- 
         # # create the messaging service to use - 
         # service = client.messaging \
         #             .v1 \
@@ -265,10 +244,9 @@ def add_days_to_dates(date_strings):
         #                 .services(service.sid) \
         #                 .phone_numbers \
         #                 .create(
-        #                     phone_number_sid='PNaace68c4f6185168dc63bb30ed3cf70f'
+        #                     phone_number_sid= PHONE_SID
         #                 )
         # print(phone_number.sid)
-
     # messageScheduler(schedule_dates_array, message)
 # imageRead() 
 
