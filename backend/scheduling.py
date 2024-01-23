@@ -11,15 +11,15 @@ def marcus(message, startTimes): # NEEDS PHONE NUMBER -----------
 
 
     # setup account info -- put in .env 
-    account_sid = 'ACd5c15461c9aed877d5a72ff1608e0945' # given acc_sid
-    auth_token = '0c02785b92ec7134cbc92942a97c951f'  # given auth token
+    account_sid = ACC_ID # given acc_sid
+    auth_token = AUTH_TOKEN  # given auth token
     client = Client(account_sid, auth_token)
 
     # messageDemoInstant("Hello, your pill scheduling has been confirmed! Stay Healthy!") # FOR CONFIRMATION
     message = client.messages.create(
-        from_='+16592228774',
+        from_= ACCOUNT_NUMBER,
         body="Hello, your pill scheduling has been confirmed! Stay Healthy!", # replace with message
-        to='+16043568278'
+        to= PHONE_NUMBER
         )
     print(message.sid)
 
@@ -28,11 +28,11 @@ def marcus(message, startTimes): # NEEDS PHONE NUMBER -----------
         message = client.messages \
             .create(
                 body=message, # replace with message
-                messaging_service_sid='MG99dc5b9921885ba4ee0697951046edf3', # 
+                messaging_service_sid= MESSAGE_SID, # 
                 #  from_='+16592228774',
                 send_at=dates, # scheduled message
                 schedule_type='fixed',
-                to='+16043568278' # UPDATE TO USE PHONE NUMBER PARAMETER ---------
+                to= PHONE_NUMBER # UPDATE TO USE PHONE NUMBER PARAMETER ---------
             )
         print(message.sid + ' printed new date')
 
@@ -72,9 +72,9 @@ marcus('Reminder for Hohn, 23 years old: Please take your medicine, Crack. Chew 
 
 def messageDemoInstant(message):
     message = client.messages.create(
-                                  from_='+16592228774',
+                                  from_= ACCOUNT_NUMBER,
                                   body=message, # replace with message
-                                  to='+16043568278'
+                                  to= PHONE_NUMBER
                               )
     print(message.sid)
 
@@ -95,7 +95,7 @@ def messageDemoInstant(message):
         #                 .services(service.sid) \
         #                 .phone_numbers \
         #                 .create(
-        #                     phone_number_sid='PNaace68c4f6185168dc63bb30ed3cf70f'
+        #                     phone_number_sid= PHONE_SID
         #                 )
         # print(phone_number.sid)
 
