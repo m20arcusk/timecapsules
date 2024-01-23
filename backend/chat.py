@@ -7,7 +7,7 @@ from datetime import datetime, time
 
 client = OpenAI(
     # This is the default and can be omitted
-    api_key="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"
+    api_key= API_KEY
     # api_key = os.environ['API_KEY']
 )
 
